@@ -7,6 +7,7 @@ namespace Script.Planet
 	public class Player : MonoBehaviour
 	{
 		private GameObject playerSprite;
+		private const float MoveSpeed = 5f;
 
 		// Start is called before the first frame update
 		private void Start()
@@ -21,7 +22,7 @@ namespace Script.Planet
 			var y = Input.GetAxis("Vertical");
 			var move = new Vector3(x, y, 0);
 			move.Normalize();
-			transform.Translate(5 * Time.deltaTime * move);
+			transform.Translate(MoveSpeed * Time.deltaTime * move);
 			if (move.sqrMagnitude > 0)
 			{
 				playerSprite.transform.rotation =
