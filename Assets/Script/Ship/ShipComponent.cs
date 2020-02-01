@@ -5,6 +5,7 @@ using Script.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Script.Ship
 {
@@ -132,7 +133,37 @@ namespace Script.Ship
 				// correct part added
 				inventorySlot.PlayDropSound();
 				inventorySlot.ItemCount -= 1;
-				// TODO: increase health
+
+				if (inventorySlot.itemType == componentType)
+				{
+					// replacing the component gives full health
+					health = 1f;
+					return;
+				}
+				if (parts.Contains(inventorySlot.itemType))
+				{
+					// having the correct replacement part gives back 40% health
+					health = Mathf.Min(1f, health + 0.4f);
+					return;
+				}
+				if (inventorySlot.itemType == ItemType.Cabling)
+				{
+					// cabling always heals 10%
+					health = Mathf.Min(1f, health + 0.1f);
+					return;
+				}
+				if (inventorySlot.itemType == ItemType.DuctTape)
+				{
+					// duct tape is more efficient the more health is left
+					var effiency = Mathf.Exp(health) - 1f;
+					// some values:
+					// 0 health -> 0
+					// ~0.45 health -> 0.5
+					// 0.5 health -> ~0.65
+					// ~0.7 health -> 1
+					var rand = Random.Range(0f, 0.5f);
+					health = Mathf.Clamp(health + effiency - rand, 0f, 1f);
+				}
 			}
 		}
 	}
