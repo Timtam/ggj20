@@ -90,17 +90,26 @@ namespace Script.Ship
 				case ItemType.Cabling:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_kabel"));
 					break;
+				case ItemType.CircuitBoard:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_platine"));
+					break;
+				case ItemType.DuctTape:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_tape"));
+					break;
+				case ItemType.EnergyCrystal:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_energiekristall"));
+					break;
+				case ItemType.MetalPlate:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_metallplatte"));
+					break;
 				case ItemType.Microchip:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_microchip"));
 					break;
 				case ItemType.Navigation:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_navigation"));
 					break;
-				case ItemType.CircuitBoard:
-					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_platine"));
-					break;
-				case ItemType.DuctTape:
-					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_tape"));
+				case ItemType.Oxygen:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_sauerstoff"));
 					break;
 				case ItemType.Thruster:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_triebwerk"));

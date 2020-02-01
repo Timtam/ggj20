@@ -37,11 +37,15 @@ namespace Script.Items
 				case ItemType.Cabling:
 					return "Items/dotRed";
 				case ItemType.CircuitBoard:
-					return "Items/genericItem_color_075";
+					return "Items/circuitBoard";
 				case ItemType.EnergyCrystal:
+					return "Items/energyCrystal";
 				case ItemType.Fuel:
+					return "Items/fuel";
 				case ItemType.Microchip:
+					return "Items/microchip";
 				case ItemType.MetalPlate:
+					return "Items/metalPlate";
 				case ItemType.Oxygen:
 				case ItemType.DuctTape:
 					return "Items/dotRed";

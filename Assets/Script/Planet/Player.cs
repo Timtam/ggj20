@@ -27,7 +27,7 @@ namespace Script.Planet
 			if (move.sqrMagnitude > 0)
 			{
 				playerSprite.transform.rotation =
-					Quaternion.AngleAxis(Vector3.SignedAngle(Vector3.right, move, Vector3.forward), Vector3.forward);
+					Quaternion.AngleAxis(Vector3.SignedAngle(Vector3.up, move, Vector3.forward), Vector3.forward);
 			}
 		}
 
