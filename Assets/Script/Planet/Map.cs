@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Script.Items;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,7 +12,27 @@ namespace Script.Planet
 
 		public void Start()
 		{
+			ChooseMap();
 			SpawnPickups();
+		}
+
+		private void ChooseMap()
+		{
+			var map = Random.Range(0, 5) + 1;
+			var ways = transform.Find("Ways").GetComponent<SpriteRenderer>();
+			var fg = transform.Find("FG").GetComponent<SpriteRenderer>();
+			var fgCollider = fg.GetComponent<PolygonCollider2D>();
+			ways.sprite = Resources.Load<Sprite>($"Map/Dorf {map}_Weg");
+			fg.sprite = Resources.Load<Sprite>($"Map/Dorf {map}");
+
+			var count = fg.sprite.GetPhysicsShapeCount();
+			fgCollider.pathCount = count;
+			for (var i = 0; i < count; i++)
+			{
+				var shape = new List<Vector2>();
+				fg.sprite.GetPhysicsShape(i, shape);
+				fgCollider.SetPath(i, shape);
+			}
 		}
 
 		private void SpawnPickups()
