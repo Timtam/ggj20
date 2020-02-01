@@ -10,9 +10,9 @@ Drop des Teils je Komponente:;;
 ;Platine;X
 ;Microchip;X
 ;Treibstoff;
-;Metallplatte;
-;Sauerstoff;
-;Energiekristall;
+;Metallplatte;X
+;Sauerstoff;X
+;Energiekristall;X
 ;Tape;X
 ;Kabel;X
 Hit 1;;
