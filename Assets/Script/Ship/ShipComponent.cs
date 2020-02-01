@@ -4,24 +4,27 @@ using System.Linq;
 using Script.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Script.Ship
 {
 	public class ShipComponent : MonoBehaviour, IDropHandler
 	{
-		public float health;
+		[NonSerialized]
+		public float health = 0.5f;
 		public ItemType componentType;
 		public ItemType[] parts;
 		public bool flipHorizontal;
 
 		private ComponentPart part0;
 		private ComponentPart part1;
+		private Image lifebar;
 
 		private void Start()
 		{
 			part0 = transform.Find("Part0").GetComponent<ComponentPart>();
 			part1 = transform.Find("Part1").GetComponent<ComponentPart>();
+			lifebar = transform.Find("Lifebar").GetComponent<Image>();
 
 			Flip();
 
@@ -52,6 +55,16 @@ namespace Script.Ship
 			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
 			anchor = rt.anchoredPosition;
 			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
+
+			rt = lifebar.transform as RectTransform;
+			anchor = rt.anchorMax;
+			rt.anchorMax = new Vector2(1 - anchor.x, anchor.y);
+			anchor = rt.anchorMin;
+			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
+			anchor = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
+			anchor = rt.pivot;
+			rt.pivot = new Vector2(1 - anchor.x, anchor.y);
 		}
 
 		private void UpdatePart(ref ComponentPart part, int index)
@@ -65,6 +78,24 @@ namespace Script.Ship
 			{
 				Destroy(part.gameObject);
 				part = null;
+			}
+		}
+
+		private void Update()
+		{
+			var rt = lifebar.transform as RectTransform;
+			rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 116f * health);
+			if (health > 0.5f)
+			{
+				lifebar.color = Color.green;
+			}
+			else if (health > 0.2f)
+			{
+				lifebar.color = Color.yellow;
+			}
+			else
+			{
+				lifebar.color = Color.red;
 			}
 		}
 
