@@ -49,9 +49,11 @@ namespace Script.Items
 				case ItemType.MetalPlate:
 					return "Items/metalPlate";
 				case ItemType.Oxygen:
+					return "Items/oxygen";
 				case ItemType.Cabin:
 				case ItemType.Cargo:
 				case ItemType.Navigation:
+					return "Items/navigation";
 				case ItemType.PowerPlant:
 				case ItemType.Shield:
 				case ItemType.Thruster:

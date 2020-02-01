@@ -104,6 +104,8 @@ namespace Script.Ship
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_energiekristall"));
 					break;
 				case ItemType.Fuel:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_treibstoff"));
+					break;
 				case ItemType.MetalPlate:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_metallplatte"));
 					break;
@@ -120,6 +122,8 @@ namespace Script.Ship
 					break;
 				case ItemType.PowerPlant:
 				case ItemType.Shield:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_schild"));
+					break;
 				case ItemType.Thruster:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_triebwerk"));
 					break;
