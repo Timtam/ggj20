@@ -16,24 +16,38 @@ namespace Script.Planet
 
 		private void SpawnPickups()
 		{
-			for (int i = 0; i < 20; i++)
+			for (var i = 0; i < 20; i++)
 			{
-				var x = Random.value * 50 - 25;
-				var y = Random.value * 50 - 25;
-				var pickup = Instantiate(pickupPrefab, new Vector3(x, y, 0), Quaternion.identity);
-				var t1 = Random.value;
-				var t2 = Random.value;
-				if (t1 > 0.8f)
+				var type = GetNewPickupType();
+				var sprite = Item.GetSpriteForItem(type);
+				var spriteSize = sprite.rect.size / sprite.pixelsPerUnit;
+				while (true)
 				{
-					// spawn component
-					pickup.pickupType = Item.ComponentTypes[Mathf.FloorToInt(t2 * Item.ComponentTypes.Length)];
+					var x = Random.value * 50 - 25;
+					var y = Random.value * 50 - 25;
+					var hit = Physics2D.BoxCast(new Vector2(x, y), spriteSize, 0, Vector2.zero);
+					if (hit.collider != null) continue;
+					var pickup = Instantiate(pickupPrefab, new Vector3(x, y, 0), Quaternion.identity);
+					pickup.pickupType = type;
+					pickup.UpdateSprite();
+					break;
 				}
-				else
-				{
-					// spawn part
-					pickup.pickupType = Item.PartTypes[Mathf.FloorToInt(t2 * Item.PartTypes.Length)];
-				}
-				pickup.UpdateSprite();
+			}
+		}
+
+		private ItemType GetNewPickupType()
+		{
+			var t1 = Random.value;
+			var t2 = Random.value;
+			if (t1 > 0.8f)
+			{
+				// spawn component
+				return Item.ComponentTypes[Mathf.FloorToInt(t2 * Item.ComponentTypes.Length)];
+			}
+			else
+			{
+				// spawn part
+				return Item.PartTypes[Mathf.FloorToInt(t2 * Item.PartTypes.Length)];
 			}
 		}
 	}
