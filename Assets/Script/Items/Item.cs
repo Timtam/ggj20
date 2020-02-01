@@ -52,6 +52,7 @@ namespace Script.Items
 					return "Items/oxygen";
 				case ItemType.Cabin:
 				case ItemType.Cargo:
+					return "Items/cargo";
 				case ItemType.Navigation:
 					return "Items/navigation";
 				case ItemType.PowerPlant:
