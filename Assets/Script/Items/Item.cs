@@ -39,6 +39,7 @@ namespace Script.Items
 				case ItemType.CircuitBoard:
 					return "Items/circuitBoard";
 				case ItemType.DuctTape:
+					return "Items/ductTape";
 				case ItemType.EnergyCrystal:
 					return "Items/energyCrystal";
 				case ItemType.Fuel:
