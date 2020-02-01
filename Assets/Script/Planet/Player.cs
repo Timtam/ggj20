@@ -12,6 +12,7 @@ namespace Script.Planet
 		private AudioSource robotStart;
 		private AudioSource robotStop;
 		private Rigidbody2D body;
+		private Inventory inventory;
 		private Vector2 move = Vector2.zero;
 		private bool isMoving;
 		private const float MoveSpeed = 5f;
@@ -24,6 +25,7 @@ namespace Script.Planet
 			robotStart = sources[1];
 			robotStop = sources[2];
 			body = GetComponent<Rigidbody2D>();
+			inventory = FindObjectOfType<Inventory>();
 		}
 
 		private void Update()
@@ -61,8 +63,10 @@ namespace Script.Planet
 		{
 			var pickup = other.gameObject.GetComponent<Pickup>();
 			if (pickup == null) return;
-			// TODO: actually do something with the pickup
-			Destroy(pickup.gameObject);
+			if (inventory.StoreItem(pickup.pickupType))
+			{
+				Destroy(pickup.gameObject);
+			}
 		}
 	}
 }

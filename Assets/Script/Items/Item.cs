@@ -66,6 +66,8 @@ namespace Script.Items
 			}
 		}
 
+		public static int GetItemInventorySize(ItemType type) => PartTypes.Contains(type) ? 1 : 2;
+
 		public static Texture2D GetTextureForItem(ItemType type) =>
 			Resources.Load<Texture2D>(GetResourcePathForItem(type));
 
