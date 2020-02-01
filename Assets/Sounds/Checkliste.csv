@@ -1,9 +1,9 @@
 Reperatur-Szene;;Check
 Auswahl Teil aus Inventar;;X
 Drop des Teils je Komponente:;;
-;Navigationsmodul;
-;Triebwerk;
- ;Lagerraum;
+;Navigationsmodul;X
+;Triebwerk;X
+;Lagerraum;
 ;Kabine;
 ;Generator;
 ;Schild;
@@ -14,7 +14,7 @@ Drop des Teils je Komponente:;;
 ;Sauerstoff;
 ;Energiekristall;
 ;Tape;X
-;Kabel;
+;Kabel;X
 Hit 1;;
 Hit 2;;
 Hit 3;;
