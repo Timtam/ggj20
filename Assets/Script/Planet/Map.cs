@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Script.Items;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Script.Planet
@@ -10,10 +12,19 @@ namespace Script.Planet
 	{
 		public Pickup pickupPrefab;
 
+		private Inventory inventory;
+		private Text countdowmText;
+		private float remainingTime;
+
 		public void Start()
 		{
 			ChooseMap();
 			SpawnPickups();
+
+			var canvas = FindObjectOfType<Canvas>();
+			countdowmText = canvas.transform.Find("Countdown").GetComponent<Text>();
+			remainingTime = 120f; // 2 min
+			inventory = canvas.GetComponentInChildren<Inventory>();
 		}
 
 		private void ChooseMap()
@@ -69,6 +80,20 @@ namespace Script.Planet
 			{
 				// spawn part
 				return Item.PartTypes[Mathf.FloorToInt(t2 * Item.PartTypes.Length)];
+			}
+		}
+
+		private void Update()
+		{
+			remainingTime -= Time.deltaTime;
+			var sec = Mathf.Max(0, Mathf.FloorToInt(remainingTime % 60f));
+			var min = Mathf.FloorToInt((remainingTime - sec) / 60f);
+			countdowmText.text = $"Time until ship leaves\n{min:00}:{sec:00}";
+
+			if (remainingTime <= 0)
+			{
+				inventory.MoveItemsToShip();
+				SceneManager.LoadScene("StartShipScene");
 			}
 		}
 	}
