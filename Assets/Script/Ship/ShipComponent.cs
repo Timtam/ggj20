@@ -20,6 +20,7 @@ namespace Script.Ship
 		private ComponentPart part1;
 		private Image lifebar;
 		private Image componentImage;
+		private float lifebarWidth;
 
 		private void Start()
 		{
@@ -39,6 +40,8 @@ namespace Script.Ship
 			}
 
 			componentImage.sprite = Item.GetSpriteForItem(componentType);
+			var rt = lifebar.transform as RectTransform;
+			lifebarWidth = rt.rect.width;
 		}
 
 		private void Flip()
@@ -96,7 +99,7 @@ namespace Script.Ship
 		private void Update()
 		{
 			var rt = lifebar.transform as RectTransform;
-			rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 116f * health);
+			rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifebarWidth * health);
 			if (health > 0.5f)
 			{
 				lifebar.color = Color.green;
