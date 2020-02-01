@@ -13,6 +13,7 @@ namespace Script.Ship
 		public float health;
 		public ItemType componentType;
 		public ItemType[] parts;
+		public bool flipHorizontal;
 
 		private ComponentPart part0;
 		private ComponentPart part1;
@@ -22,6 +23,8 @@ namespace Script.Ship
 			part0 = transform.Find("Part0").GetComponent<ComponentPart>();
 			part1 = transform.Find("Part1").GetComponent<ComponentPart>();
 
+			Flip();
+
 			UpdatePart(ref part0, 0);
 			UpdatePart(ref part1, 1);
 
@@ -29,6 +32,26 @@ namespace Script.Ship
 			{
 				parts = parts.Take(2).ToArray();
 			}
+		}
+
+		private void Flip()
+		{
+			if (!flipHorizontal) return;
+			var rt = part0.transform as RectTransform;
+			var anchor = rt.anchorMax;
+			rt.anchorMax = new Vector2(1 - anchor.x, anchor.y);
+			anchor = rt.anchorMin;
+			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
+			anchor = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
+
+			rt = part1.transform as RectTransform;
+			anchor = rt.anchorMax;
+			rt.anchorMax = new Vector2(1 - anchor.x, anchor.y);
+			anchor = rt.anchorMin;
+			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
+			anchor = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
 		}
 
 		private void UpdatePart(ref ComponentPart part, int index)

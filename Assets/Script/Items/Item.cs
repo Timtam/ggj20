@@ -39,6 +39,7 @@ namespace Script.Items
 				case ItemType.CircuitBoard:
 					return "Items/circuitBoard";
 				case ItemType.DuctTape:
+					return "Items/ductTape";
 				case ItemType.EnergyCrystal:
 					return "Items/energyCrystal";
 				case ItemType.Fuel:
@@ -48,13 +49,15 @@ namespace Script.Items
 				case ItemType.MetalPlate:
 					return "Items/metalPlate";
 				case ItemType.Oxygen:
+					return "Items/oxygen";
 				case ItemType.Cabin:
 				case ItemType.Cargo:
 				case ItemType.Navigation:
+					return "Items/navigation";
 				case ItemType.PowerPlant:
 				case ItemType.Shield:
 				case ItemType.Thruster:
-					return "Items/dotRed";
+					return "Items/thruster";
 				default:
 					throw new Exception();
 			}
