@@ -1,6 +1,6 @@
 Reperatur-Szene;;Check
 Auswahl Teil aus Inventar;;X
-Drop des Teils je Komponente:;;
+Drop des Teils je Komponente:;;X
 ;Navigationsmodul;X
 ;Triebwerk;X
 ;Lagerraum;X
@@ -15,12 +15,13 @@ Drop des Teils je Komponente:;;
 ;Energiekristall;X
 ;Tape;X
 ;Kabel;X
-Hit 1;;
-Hit 2;;
-Hit 3;;
-Hit 4;;
-Hit 5;;
-Timer;;
+Flascher Drop;;X
+Hit 1;;X
+Hit 2;;X
+Hit 3;;X
+Hit 4;;X
+Hit 5;;X
+Timer;;X
 Ausfall von Komponenten:;;
 ;Navigationsmodul;
 ;Triebwerk;
@@ -42,7 +43,7 @@ Fortbewegung (Rollen);Loop;X
 ;Start;X
 ;Stopp;X
 Piepen (x verschiedene);;
-Timer;;
+Timer;;X
 Starten;;
 Landen;;
 ;;
@@ -51,3 +52,4 @@ Nice-to-have;;
 allgemeiner Reperatur-Sound je Komponente (abmischen);;
 Starten / Landen variieren (pro Planet);;
 Upgrade;;
+Timer / Glocke unterschiedlich in den Szenen;;
