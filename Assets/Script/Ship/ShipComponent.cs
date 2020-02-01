@@ -19,12 +19,14 @@ namespace Script.Ship
 		private ComponentPart part0;
 		private ComponentPart part1;
 		private Image lifebar;
+		private Image componentImage;
 
 		private void Start()
 		{
 			part0 = transform.Find("Part0").GetComponent<ComponentPart>();
 			part1 = transform.Find("Part1").GetComponent<ComponentPart>();
 			lifebar = transform.Find("Lifebar").GetComponent<Image>();
+			componentImage = transform.Find("Component").GetComponent<Image>();
 
 			Flip();
 
@@ -35,36 +37,46 @@ namespace Script.Ship
 			{
 				parts = parts.Take(2).ToArray();
 			}
+
+			componentImage.sprite = Item.GetSpriteForItem(componentType);
 		}
 
 		private void Flip()
 		{
 			if (!flipHorizontal) return;
 			var rt = part0.transform as RectTransform;
-			var anchor = rt.anchorMax;
-			rt.anchorMax = new Vector2(1 - anchor.x, anchor.y);
-			anchor = rt.anchorMin;
-			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
-			anchor = rt.anchoredPosition;
-			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
+			var anchorMax = rt.anchorMax;
+			var anchorMin = rt.anchorMin;
+			rt.anchorMax = new Vector2(1 - anchorMin.x, anchorMax.y);
+			rt.anchorMin = new Vector2(1 - anchorMax.x, anchorMin.y);
+			var position = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(position.x * -1, position.y);
 
 			rt = part1.transform as RectTransform;
-			anchor = rt.anchorMax;
-			rt.anchorMax = new Vector2(1 - anchor.x, anchor.y);
-			anchor = rt.anchorMin;
-			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
-			anchor = rt.anchoredPosition;
-			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
+			anchorMax = rt.anchorMax;
+			anchorMin = rt.anchorMin;
+			rt.anchorMax = new Vector2(1 - anchorMin.x, anchorMax.y);
+			rt.anchorMin = new Vector2(1 - anchorMax.x, anchorMin.y);
+			position = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(position.x * -1, position.y);
 
 			rt = lifebar.transform as RectTransform;
-			anchor = rt.anchorMax;
-			rt.anchorMax = new Vector2(1 - anchor.x, anchor.y);
-			anchor = rt.anchorMin;
-			rt.anchorMin = new Vector2(1 - anchor.x, anchor.y);
-			anchor = rt.anchoredPosition;
-			rt.anchoredPosition = new Vector2(anchor.x * -1, anchor.y);
-			anchor = rt.pivot;
-			rt.pivot = new Vector2(1 - anchor.x, anchor.y);
+			anchorMax = rt.anchorMax;
+			anchorMin = rt.anchorMin;
+			rt.anchorMax = new Vector2(1 - anchorMin.x, anchorMax.y);
+			rt.anchorMin = new Vector2(1 - anchorMax.x, anchorMin.y);
+			position = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(position.x * -1, position.y);
+			var pivot = rt.pivot;
+			rt.pivot = new Vector2(1 - pivot.x, pivot.y);
+
+			rt = componentImage.transform as RectTransform;
+			anchorMax = rt.anchorMax;
+			anchorMin = rt.anchorMin;
+			rt.anchorMax = new Vector2(1 - anchorMin.x, anchorMax.y);
+			rt.anchorMin = new Vector2(1 - anchorMax.x, anchorMin.y);
+			position = rt.anchoredPosition;
+			rt.anchoredPosition = new Vector2(position.x * -1, position.y);
 		}
 
 		private void UpdatePart(ref ComponentPart part, int index)
