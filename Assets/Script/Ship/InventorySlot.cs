@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Script.Items;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -27,6 +25,7 @@ namespace Script.Ship
 		private Text countText;
 		private Inventory shipInventory;
 		private GameObject dragIcon;
+		private AudioSource audioSource;
 		private int typeIndex;
 
 		private void Start()
@@ -35,6 +34,7 @@ namespace Script.Ship
 			shipInventory = GetComponentInParent<Inventory>();
 			image = GetComponent<Image>();
 			countText = GetComponentInChildren<Text>();
+			audioSource = GetComponent<AudioSource>();
 			UpdateSprite();
 			UpdateCount();
 		}
@@ -64,6 +64,7 @@ namespace Script.Ship
 			var rectTransform = iconImage.GetComponent<RectTransform>();
 			rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 25f);
 			rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 25f);
+			audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drag"));
 		}
 
 		public void OnDrag(PointerEventData eventData)
@@ -83,6 +84,28 @@ namespace Script.Ship
 			Destroy(dragIcon);
 			dragIcon = null;
 			ItemCount += 1;
+
+			switch (itemType)
+			{
+				case ItemType.Cabling:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_kabel"));
+					break;
+				case ItemType.Microchip:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_microchip"));
+					break;
+				case ItemType.Navigation:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_navigation"));
+					break;
+				case ItemType.CircuitBoard:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_platine"));
+					break;
+				case ItemType.DuctTape:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_tape"));
+					break;
+				case ItemType.Thruster:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_triebwerk"));
+					break;
+			}
 		}
 	}
 }
