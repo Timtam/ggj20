@@ -57,7 +57,7 @@ namespace Script.Items
 				case ItemType.PowerPlant:
 				case ItemType.Shield:
 				case ItemType.Thruster:
-					return "Items/dotRed";
+					return "Items/thruster";
 				default:
 					throw new Exception();
 			}
