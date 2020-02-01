@@ -1,3 +1,4 @@
+using System;
 using Script.Items;
 using UnityEngine;
 
@@ -99,6 +100,20 @@ namespace Script.Planet
 			{
 				return inventory[x, y].IsFree && inventory[x + 1, y].IsFree && inventory[x, y + 1].IsFree &&
 				       inventory[x + 1, y + 1].IsFree;
+			}
+		}
+
+		public void MoveItemsToShip()
+		{
+			var globals = Globals.Instance;
+			for (var y = 0; y < SizeY; y++)
+			{
+				for (var x = 0; x < SizeX; x++)
+				{
+					var type = RemoveItemFrom(x, y);
+					if (type == null) continue;
+					globals.shipInventory[Array.IndexOf(Item.ItemTypes, type.Value)]++;
+				}
 			}
 		}
 	}

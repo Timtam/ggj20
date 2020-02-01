@@ -62,10 +62,18 @@ namespace Script.Planet
 		private void OnCollisionEnter2D(Collision2D other)
 		{
 			var pickup = other.gameObject.GetComponent<Pickup>();
-			if (pickup == null) return;
-			if (inventory.StoreItem(pickup.pickupType))
+			if (pickup != null)
 			{
-				Destroy(pickup.gameObject);
+				if (inventory.StoreItem(pickup.pickupType))
+				{
+					Destroy(pickup.gameObject);
+				}
+				return;
+			}
+
+			if (other.gameObject.name == "Ship")
+			{
+				inventory.MoveItemsToShip();
 			}
 		}
 	}
