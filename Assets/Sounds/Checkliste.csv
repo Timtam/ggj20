@@ -6,10 +6,10 @@ Drop des Teils je Komponente:;;
 ;Lagerraum;
 ;Kabine;
 ;Generator;
-;Schild;
+;Schild;X
 ;Platine;X
 ;Microchip;X
-;Treibstoff;
+;Treibstoff;X
 ;Metallplatte;X
 ;Sauerstoff;X
 ;Energiekristall;X
@@ -27,7 +27,7 @@ Ausfall von Komponenten:;;
 ;Lagerraum;
 ;Kabine;
 ;Generator;
-;Schild;
+;Schild;X
 Musik;;
 Atmosph‰re;;
 ;;
@@ -38,9 +38,9 @@ Atmosph‰re;;
 Aufsammeln:;Bauteile / Rohstoffe (klein);
 ;Komponenten (groﬂ);
 Inventar von Roboter nach Schiffslager;;
-Fortbewegung (Rollen);Loop;
-;Start;
-;Stopp;
+Fortbewegung (Rollen);Loop;X
+;Start;X
+;Stopp;X
 Piepen (x verschiedene);;
 Timer;;
 Starten;;
