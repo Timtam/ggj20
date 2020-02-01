@@ -11,8 +11,11 @@ namespace Script.Ship
 
 		public InventorySlot inventorySlotPrefab;
 
+		public int[] ItemCounts { get; private set; } = new int[Item.ItemTypes.Length];
+
 		private void Start()
 		{
+			ItemCounts = Globals.Instance.shipInventory;
 			var typeIndex = 0;
 			foreach (var y in SlotYPositions)
 			{
@@ -23,6 +26,14 @@ namespace Script.Ship
 					slot.itemType = Item.ItemTypes[typeIndex++];
 					slot.UpdateSprite();
 				}
+			}
+		}
+
+		public void UpdateCount()
+		{
+			foreach (Transform child in transform)
+			{
+				child.GetComponent<InventorySlot>()?.UpdateCount();
 			}
 		}
 	}
