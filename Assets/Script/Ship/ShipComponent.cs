@@ -42,6 +42,13 @@ namespace Script.Ship
 			componentImage.sprite = Item.GetSpriteForItem(componentType);
 			var rt = lifebar.transform as RectTransform;
 			lifebarWidth = rt.rect.width;
+
+			health = Globals.Instance.shipComponentHealth[Array.IndexOf(Item.ComponentTypes, componentType)];
+		}
+
+		private void OnDestroy()
+		{
+			Globals.Instance.shipComponentHealth[Array.IndexOf(Item.ComponentTypes, componentType)] = health;
 		}
 
 		private void Flip()

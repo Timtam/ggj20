@@ -15,6 +15,11 @@ namespace Script.Ship
 			UpdateCount();
 		}
 
+		private void OnDestroy()
+		{
+			Globals.Instance.shipInventory = ItemCounts;
+		}
+
 		public void UpdateCount()
 		{
 			foreach (Transform child in transform)
