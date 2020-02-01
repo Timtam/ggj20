@@ -1,19 +1,19 @@
 Reperatur-Szene;;Check
-Auswahl Teil aus Inventar;;
+Auswahl Teil aus Inventar;;X
 Drop des Teils je Komponente:;;
 ;Navigationsmodul;
 ;Triebwerk;
-;Lagerraum;
+ ;Lagerraum;
 ;Kabine;
 ;Generator;
 ;Schild;
-;Platine;
-;Microchip;
+;Platine;X
+;Microchip;X
 ;Treibstoff;
 ;Metallplatte;
 ;Sauerstoff;
 ;Energiekristall;
-;Tape;
+;Tape;X
 ;Kabel;
 Hit 1;;
 Hit 2;;
