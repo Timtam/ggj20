@@ -19,6 +19,7 @@ namespace Script.Ship
 				UpdateCount();
 			}
 		}
+		public bool IsDragging { get; private set; } = false;
 
 		private Canvas canvas;
 		private Image image;
@@ -55,12 +56,13 @@ namespace Script.Ship
 		public void OnBeginDrag(PointerEventData eventData)
 		{
 			if (ItemCount <= 0) return;
-			ItemCount -= 1;
+			IsDragging = true;
 			dragIcon = new GameObject("dragIcon");
 			dragIcon.transform.SetParent(canvas.transform);
 			dragIcon.transform.SetAsLastSibling();
 			var iconImage = dragIcon.AddComponent<Image>();
 			iconImage.sprite = image.sprite;
+			iconImage.raycastTarget = false;
 			var rectTransform = iconImage.GetComponent<RectTransform>();
 			rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 25f);
 			rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 25f);
@@ -80,11 +82,13 @@ namespace Script.Ship
 		public void OnEndDrag(PointerEventData eventData)
 		{
 			if (dragIcon == null) return;
-			// TODO: check for correct component and what to do with the dragged item
 			Destroy(dragIcon);
 			dragIcon = null;
-			ItemCount += 1;
+			IsDragging = false;
+		}
 
+		public void PlayDropSound()
+		{
 			switch (itemType)
 			{
 				case ItemType.Cabling:
@@ -99,21 +103,28 @@ namespace Script.Ship
 				case ItemType.EnergyCrystal:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_energiekristall"));
 					break;
+				case ItemType.Fuel:
 				case ItemType.MetalPlate:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_metallplatte"));
 					break;
 				case ItemType.Microchip:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_microchip"));
 					break;
-				case ItemType.Navigation:
-					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_navigation"));
-					break;
 				case ItemType.Oxygen:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_sauerstoff"));
 					break;
+				case ItemType.Cabin:
+				case ItemType.Cargo:
+				case ItemType.Navigation:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_navigation"));
+					break;
+				case ItemType.PowerPlant:
+				case ItemType.Shield:
 				case ItemType.Thruster:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_triebwerk"));
 					break;
+				default:
+					throw new Exception();
 			}
 		}
 	}

@@ -35,9 +35,10 @@ namespace Script.Items
 			switch (type)
 			{
 				case ItemType.Cabling:
-					return "Items/dotRed";
+					return "Items/cabling";
 				case ItemType.CircuitBoard:
 					return "Items/circuitBoard";
+				case ItemType.DuctTape:
 				case ItemType.EnergyCrystal:
 					return "Items/energyCrystal";
 				case ItemType.Fuel:
@@ -47,8 +48,6 @@ namespace Script.Items
 				case ItemType.MetalPlate:
 					return "Items/metalPlate";
 				case ItemType.Oxygen:
-				case ItemType.DuctTape:
-					return "Items/dotRed";
 				case ItemType.Cabin:
 				case ItemType.Cargo:
 				case ItemType.Navigation:
