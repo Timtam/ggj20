@@ -116,11 +116,17 @@ namespace Script.Ship
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_sauerstoff"));
 					break;
 				case ItemType.Cabin:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_kabine"));
+					break;
 				case ItemType.Cargo:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_lagerraum"));
+					break;
 				case ItemType.Navigation:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_navigation"));
 					break;
 				case ItemType.PowerPlant:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_generator"));
+					break;
 				case ItemType.Shield:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/drop_schild"));
 					break;

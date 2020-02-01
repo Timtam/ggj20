@@ -56,7 +56,9 @@ namespace Script.Items
 				case ItemType.Navigation:
 					return "Items/navigation";
 				case ItemType.PowerPlant:
+					return "Items/powerplant";
 				case ItemType.Shield:
+					return "Items/shield";
 				case ItemType.Thruster:
 					return "Items/thruster";
 				default:
