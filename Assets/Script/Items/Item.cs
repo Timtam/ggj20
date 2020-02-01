@@ -26,11 +26,8 @@ namespace Script.Items
 
 	public class Item
 	{
-		private static ItemType[] partTypes = Enum.GetValues(typeof(ItemType)).Cast<ItemType>().Take(8).ToArray();
-		private static ItemType[] componentTypes = Enum.GetValues(typeof(ItemType)).Cast<ItemType>().Skip(8).ToArray();
-
-		public static ItemType[] PartTypes => partTypes;
-		public static ItemType[] ComponentTypes => componentTypes;
+		public static ItemType[] PartTypes { get; } = Enum.GetValues(typeof(ItemType)).Cast<ItemType>().Take(8).ToArray();
+		public static ItemType[] ComponentTypes { get; } = Enum.GetValues(typeof(ItemType)).Cast<ItemType>().Skip(8).ToArray();
 
 		public static string GetResourcePathForItem(ItemType type)
 		{
