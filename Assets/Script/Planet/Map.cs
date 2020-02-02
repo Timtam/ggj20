@@ -73,7 +73,7 @@ namespace Script.Planet
 		{
 			var t1 = Random.value;
 			var t2 = Random.value;
-			if (t1 > 0.8f)
+			if (t1 > 0.9f)
 			{
 				// spawn component
 				return Item.ComponentTypes[Mathf.FloorToInt(t2 * Item.ComponentTypes.Length)];

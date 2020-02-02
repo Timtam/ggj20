@@ -140,6 +140,8 @@ namespace Script.Ship
 				case ItemType.Cabin:
 				case ItemType.Cargo:
 				case ItemType.Navigation:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_navigation"));
+					break;
 				case ItemType.PowerPlant:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_generator"));
 					break;
