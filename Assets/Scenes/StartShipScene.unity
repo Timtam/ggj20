@@ -397,8 +397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: ShipScene
-  clip: {fileID: 0}
-  duration: 5
+  clip: {fileID: 8300000, guid: a7292390796a068b3b3d66f56487d1a7, type: 3}
+  duration: 10
 --- !u!4 &358568877
 Transform:
   m_ObjectHideFlags: 0
