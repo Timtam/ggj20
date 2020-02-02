@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/PlanetScene.unity
     guid: 75f03bd5a00b9a27d964d1c27868cd28
@@ -17,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShipScene.unity
     guid: ada6225268d4172b2a4fac34138870ae
+  - enabled: 1
+    path: Assets/Scenes/LandShipScene.unity
+    guid: 96cb0aea8cf1a0e3085dc3088d4ac967
   m_configObjects: {}

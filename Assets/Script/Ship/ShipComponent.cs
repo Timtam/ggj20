@@ -25,6 +25,8 @@ namespace Script.Ship
 		private float lifebarWidth;
 		private Inventory inventory;
 
+		private Ship ship;
+
 		private void Start()
 		{
 			part0 = transform.Find("Part0").GetComponent<ComponentPart>();
@@ -34,6 +36,7 @@ namespace Script.Ship
 			audioSource = GetComponent<AudioSource>();
 			var canvas = FindObjectOfType<Canvas>();
 			inventory = canvas.GetComponentInChildren<Inventory>();
+			ship = canvas.GetComponentInChildren<Ship>();
 
 			Flip();
 
@@ -132,14 +135,27 @@ namespace Script.Ship
 					health -= 0.015f * Time.deltaTime;
 					break;
 				case ItemType.Thruster:
-					health -= 0.02f * Time.deltaTime;
+					health -= 0.01f * Time.deltaTime;
 					break;
 			}
 		}
 
 		public void Damage(float damage)
 		{
-			health = Math.Max(0f, health - damage);
+			if (componentType != ItemType.Shield && ship.Shield.health > 0f)
+			{
+				var shieldEfficiency = Mathf.Min(ship.Shield.health * 2f, 1f);
+				var totalDamageMultiplier = (1 - shieldEfficiency) * 0.5f + 0.5f;
+				var componentDamage = damage * totalDamageMultiplier * 0.4f;
+				var shieldDamage = damage * totalDamageMultiplier * 0.6f;
+				health = Math.Max(0f, health - componentDamage);
+				ship.Shield.Damage(shieldDamage);
+			}
+			else
+			{
+				health = Math.Max(0f, health - damage);
+			}
+
 			if (health <= 0f)
 			{
 				PlayOfflineSound();
