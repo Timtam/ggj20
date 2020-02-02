@@ -16,6 +16,7 @@ namespace Script.Planet
 		private Text countdowmText;
 		private float remainingTime;
 		private AudioSource timerBeep;
+		private AudioSource music;
 
 		public void Start()
 		{
@@ -27,7 +28,13 @@ namespace Script.Planet
 			countdowmText = canvas.transform.Find("Countdown").GetComponent<Text>();
 			remainingTime = 120f; // 2 min
 			inventory = canvas.GetComponentInChildren<Inventory>();
-			timerBeep = GetComponent<AudioSource>();
+
+			var sources = GetComponents<AudioSource>();
+			music = sources[0];
+			timerBeep = sources[1];
+
+			music.clip = Resources.Load<AudioClip>($"Music/Planet/{Random.Range(1, 5)}");
+			music.Play();
 		}
 
 		private void ChooseMap()

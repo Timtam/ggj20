@@ -14,6 +14,7 @@ namespace Script.Ship
 		private float remainingDistance, remainingTime, speed;
 		private ShipComponent[] components;
 		private Destruction destruction;
+		private AudioSource music;
 
 		public ShipComponent Cabin { get; private set; }
 		public ShipComponent Cargo { get; private set; }
@@ -40,6 +41,9 @@ namespace Script.Ship
 			Thruster = components.First(c => c.componentType == ItemType.Thruster);
 
 			destruction = canvas.GetComponentInChildren<Destruction>();
+			music = GetComponent<AudioSource>();
+			music.clip = Resources.Load<AudioClip>($"Music/Repair/{Random.Range(1, 5)}");
+			music.Play();
 		}
 
 		private void Update()
