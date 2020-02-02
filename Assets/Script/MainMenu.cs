@@ -9,5 +9,15 @@ namespace Script
 		{
 			SceneManager.LoadScene("PlanetScene");
 		}
+
+		public void CreditClick()
+		{
+
+		}
+
+		public void ExitClick()
+		{
+			Application.Quit();
+		}
 	}
 }
