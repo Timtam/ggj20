@@ -24,7 +24,7 @@ Hit 5;;X
 Timer;;X
 Ausfall von Komponenten:;;
 ;Navigationsmodul;X
-;Triebwerk;
+;Triebwerk;X
 ;Lagerraum;
 ;Kabine;
 ;Generator;X
@@ -43,7 +43,6 @@ Fortbewegung (Rollen);Loop;X
 ;Start;X
 ;Stopp;X
 Piepen (x verschiedene);;
-Timer;;X
 Starten;;
 Landen;;
 ;;
