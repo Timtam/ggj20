@@ -12,11 +12,13 @@ namespace Script.Ship
 
 		private Canvas canvas;
 		private ShipComponent[] components;
+		private AudioSource audioSource;
 
 		private void Start()
 		{
 			canvas = GetComponentInParent<Canvas>();
 			components = canvas.GetComponentsInChildren<ShipComponent>();
+			audioSource = GetComponent<AudioSource>();
 			StartCoroutine(DestructionLoop());
 		}
 
@@ -57,9 +59,77 @@ namespace Script.Ship
 			{
 				component = components[Random.Range(0, components.Length)];
 				loopCnt++;
-			} while (component.health <= 0f && loopCnt <= 10);
-			if (component.health <= 0f) return;
+			} while (component.Health <= 0f && loopCnt <= 10);
+			if (component.Health <= 0f) return;
 			component.Damage(Random.Range(0.1f, 0.4f));
+		}
+
+		public void DestroyShip()
+		{
+			StopAllCoroutines();
+			audioSource.Play();
+			StartCoroutine(ShipDestructionLoop());
+		}
+
+		private IEnumerator ShipDestructionLoop()
+		{
+			var explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			var rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(-70, 10);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(30, 30);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(-30, 20);
+
+			yield return new WaitForSeconds(2f);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(30, -30);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(60, 10);
+
+			yield return new WaitForSeconds(2f);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(10, 100);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(-30, 20);
+
+			yield return new WaitForSeconds(1.5f);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(30, -30);
+
+			explosion = Instantiate(explosionPrefab, Vector3.zero, Quaternion.identity, transform);
+			explosion.playHitSound = false;
+			rt = explosion.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(100, 10);
+
+			while (audioSource.isPlaying)
+			{
+				yield return new WaitForSeconds(0.2f);
+			}
+
+			// TODO: to main menu/game over
 		}
 	}
 }

@@ -11,11 +11,11 @@ namespace Script.Ship
 {
 	public class ShipComponent : MonoBehaviour, IDropHandler
 	{
-		[NonSerialized]
-		public float health = 0.5f;
 		public ItemType componentType;
 		public ItemType[] parts;
 		public bool flipHorizontal;
+
+		public float Health { get; private set; } = 0.5f;
 
 		private AudioSource audioSource;
 		private ComponentPart part0;
@@ -52,12 +52,12 @@ namespace Script.Ship
 			var rt = lifebar.transform as RectTransform;
 			lifebarWidth = rt.rect.width;
 
-			health = Globals.Instance.shipComponentHealth[Array.IndexOf(Item.ComponentTypes, componentType)];
+			Health = Globals.Instance.shipComponentHealth[Array.IndexOf(Item.ComponentTypes, componentType)];
 		}
 
 		private void OnDestroy()
 		{
-			Globals.Instance.shipComponentHealth[Array.IndexOf(Item.ComponentTypes, componentType)] = health;
+			Globals.Instance.shipComponentHealth[Array.IndexOf(Item.ComponentTypes, componentType)] = Health;
 		}
 
 		private void Flip()
@@ -114,13 +114,14 @@ namespace Script.Ship
 
 		private void Update()
 		{
+			if (ship.IsDestroyed) return;
 			var rt = lifebar.transform as RectTransform;
-			rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifebarWidth * health);
-			if (health > 0.5f)
+			rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, lifebarWidth * Health);
+			if (Health > 0.5f)
 			{
 				lifebar.color = Color.green;
 			}
-			else if (health > 0.2f)
+			else if (Health > 0.2f)
 			{
 				lifebar.color = Color.yellow;
 			}
@@ -132,31 +133,36 @@ namespace Script.Ship
 			switch (componentType)
 			{
 				case ItemType.PowerPlant:
-					health -= 0.015f * Time.deltaTime;
+					InternalDamage(0.015f * Time.deltaTime);
 					break;
 				case ItemType.Thruster:
-					health -= 0.01f * Time.deltaTime;
+					InternalDamage(0.01f * Time.deltaTime);
 					break;
 			}
 		}
 
 		public void Damage(float damage)
 		{
-			if (componentType != ItemType.Shield && ship.Shield.health > 0f)
+			if (componentType != ItemType.Shield && ship.Shield.Health > 0f)
 			{
-				var shieldEfficiency = Mathf.Min(ship.Shield.health * 2f, 1f);
+				var shieldEfficiency = Mathf.Min(ship.Shield.Health * 2f, 1f);
 				var totalDamageMultiplier = (1 - shieldEfficiency) * 0.5f + 0.5f;
 				var componentDamage = damage * totalDamageMultiplier * 0.4f;
 				var shieldDamage = damage * totalDamageMultiplier * 0.6f;
-				health = Math.Max(0f, health - componentDamage);
-				ship.Shield.Damage(shieldDamage);
+				InternalDamage(componentDamage);
+				ship.Shield.InternalDamage(shieldDamage);
 			}
 			else
 			{
-				health = Math.Max(0f, health - damage);
+				InternalDamage(damage);
 			}
+		}
 
-			if (health <= 0f)
+		private void InternalDamage(float damage)
+		{
+			if (Health <= 0f) return;
+			Health = Mathf.Max(0f, Health - damage);
+			if (Health <= 0f)
 			{
 				PlayOfflineSound();
 				if (componentType == ItemType.Cargo)
@@ -196,7 +202,7 @@ namespace Script.Ship
 		public void OnDrop(PointerEventData eventData)
 		{
 			var inventorySlot = eventData.pointerDrag.GetComponent<InventorySlot>();
-			if (inventorySlot == null || !inventorySlot.IsDragging) return;
+			if (inventorySlot == null || !inventorySlot.IsDragging || ship.IsDestroyed) return;
 
 			if (parts.Contains(inventorySlot.itemType) || inventorySlot.itemType == componentType ||
 			    inventorySlot.itemType == ItemType.Cabling || inventorySlot.itemType == ItemType.DuctTape)
@@ -208,28 +214,28 @@ namespace Script.Ship
 				if (inventorySlot.itemType == componentType)
 				{
 					// replacing the component gives full health
-					health = 1f;
+					Health = 1f;
 					return;
 				}
 				if (parts.Contains(inventorySlot.itemType))
 				{
 					// having the correct replacement part gives back 40% health
-					health = Mathf.Min(1f, health + 0.4f);
+					Health = Mathf.Min(1f, Health + 0.4f);
 					return;
 				}
 				if (inventorySlot.itemType == ItemType.Cabling)
 				{
 					// cabling always heals 15%
-					health = Mathf.Min(1f, health + 0.15f);
+					Health = Mathf.Min(1f, Health + 0.15f);
 					return;
 				}
 				if (inventorySlot.itemType == ItemType.DuctTape)
 				{
 					// duct tape may heal or not. chance increases the more health is left
-					var chance = health > 0.5f ? 1f : health * 2f;
+					var chance = Health > 0.5f ? 1f : Health * 2f;
 					if (Random.Range(0f, 1f) <= chance)
 					{
-						health = Mathf.Min(1f, health + 0.2f);
+						Health = Mathf.Min(1f, Health + 0.2f);
 					}
 				}
 			}

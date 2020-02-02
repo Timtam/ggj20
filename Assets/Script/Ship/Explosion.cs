@@ -9,6 +9,8 @@ namespace Script.Ship
 	public class Explosion : MonoBehaviour
 	{
 		public Sprite[] sprites;
+		[NonSerialized]
+		public bool playHitSound = true;
 
 		private Image image;
 		private AudioSource audioSource;
@@ -17,7 +19,10 @@ namespace Script.Ship
 		{
 			image = GetComponent<Image>();
 			audioSource = gameObject.AddComponent<AudioSource>();
-			audioSource.PlayOneShot(Resources.Load<AudioClip>($"Sounds/repair/hit_{Random.Range(1, 6)}"));
+			if (playHitSound)
+			{
+				audioSource.PlayOneShot(Resources.Load<AudioClip>($"Sounds/repair/hit_{Random.Range(1, 6)}"));
+			}
 			StartCoroutine(ShowExplosion());
 		}
 
