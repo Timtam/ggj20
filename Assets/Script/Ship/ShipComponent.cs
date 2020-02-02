@@ -149,7 +149,7 @@ namespace Script.Ship
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_schild"));
 					break;
 				case ItemType.Thruster:
-					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_generator"));
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_triebwerk"));
 					break;
 				default:
 					throw new Exception();
