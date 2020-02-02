@@ -66,7 +66,7 @@ namespace Script.Ship
 				countdownText.text = Navigation.Health <= 0.0f ? "??:??" : $"{min:00}:{sec:00}";
 			}
 
-			if (remainingTime <= 0 || Input.GetKeyDown(KeyCode.F12))
+			if (remainingTime <= 0)
 			{
 				Globals.Instance.survivedFlights++;
 				SceneManager.LoadScene("LandShipScene");

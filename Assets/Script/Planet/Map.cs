@@ -117,7 +117,7 @@ namespace Script.Planet
 			{
 				timerBeep.Play();
 			}
-			if (remainingTime <= 0 || Input.GetKeyDown(KeyCode.F12))
+			if (remainingTime <= 0)
 			{
 				inventory.MoveItemsToShip();
 				SceneManager.LoadScene("StartShipScene");
