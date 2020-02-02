@@ -48,7 +48,7 @@ namespace Script.Ship
 				remainingDistance -= Time.deltaTime * speed;
 				remainingTime = remainingDistance / speed;
 				var sec = Mathf.Max(0, Mathf.FloorToInt(remainingTime % 60f));
-				var min = Mathf.FloorToInt((remainingTime - sec) / 60f);
+				var min = Mathf.Max(0, Mathf.FloorToInt((remainingTime - sec) / 60f));
 				countdownText.text = Navigation.health <= 0.0f ? "??:??" : $"{min:00}:{sec:00}";
 			}
 
