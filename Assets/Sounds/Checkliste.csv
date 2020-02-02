@@ -22,13 +22,14 @@ Hit 3;;X
 Hit 4;;X
 Hit 5;;X
 Timer;;X
-Ausfall von Komponenten:;;
+Ausfall von Komponenten:;;X
 ;Navigationsmodul;X
 ;Triebwerk;X
-;Lagerraum;
+;Lagerraum;X
 ;Kabine;X
 ;Generator;X
 ;Schild;X
+Raumschiff explodiert (Spiel endet);;
 Musik;;
 Atmosphäre;;
 ;;
