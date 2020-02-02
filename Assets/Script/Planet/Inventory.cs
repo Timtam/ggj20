@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Script.Items;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ namespace Script.Planet
 		}
 
 		private InventorySlot[,] inventory = new InventorySlot[SizeX, SizeY];
+
+		public bool IsEmpty => inventory.Cast<InventorySlot>().All(s => s.IsFree);
 
 		private void Start()
 		{

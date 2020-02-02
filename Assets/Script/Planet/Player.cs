@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Items;
 using UnityEngine;
 
 namespace Script.Planet
@@ -11,6 +12,7 @@ namespace Script.Planet
 		private AudioSource robotMove;
 		private AudioSource robotStart;
 		private AudioSource robotStop;
+		private AudioSource collectAudio;
 		private Rigidbody2D body;
 		private Inventory inventory;
 		private Vector2 move = Vector2.zero;
@@ -26,6 +28,7 @@ namespace Script.Planet
 			robotStop = sources[2];
 			body = GetComponent<Rigidbody2D>();
 			inventory = FindObjectOfType<Inventory>();
+			collectAudio = GetComponent<AudioSource>();
 		}
 
 		private void Update()
@@ -66,6 +69,14 @@ namespace Script.Planet
 			{
 				if (inventory.StoreItem(pickup.pickupType))
 				{
+					if (Item.GetItemInventorySize(pickup.pickupType) == 1)
+					{
+						collectAudio.PlayOneShot(Resources.Load<AudioClip>("Sounds/Planet/collect"));
+					}
+					else
+					{
+						collectAudio.PlayOneShot(Resources.Load<AudioClip>("Sounds/Planet/collect_big"));
+					}
 					Destroy(pickup.gameObject);
 				}
 				return;
@@ -73,7 +84,11 @@ namespace Script.Planet
 
 			if (other.gameObject.name == "Ship")
 			{
-				inventory.MoveItemsToShip();
+				if (!inventory.IsEmpty)
+				{
+					collectAudio.PlayOneShot(Resources.Load<AudioClip>("Sounds/Planet/transfer"));
+					inventory.MoveItemsToShip();
+				}
 			}
 		}
 	}
