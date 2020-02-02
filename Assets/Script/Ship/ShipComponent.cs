@@ -17,6 +17,7 @@ namespace Script.Ship
 		public ItemType[] parts;
 		public bool flipHorizontal;
 
+		private AudioSource audioSource;
 		private ComponentPart part0;
 		private ComponentPart part1;
 		private Image lifebar;
@@ -29,6 +30,7 @@ namespace Script.Ship
 			part1 = transform.Find("Part1").GetComponent<ComponentPart>();
 			lifebar = transform.Find("Lifebar").GetComponent<Image>();
 			componentImage = transform.Find("Component").GetComponent<Image>();
+			audioSource = GetComponent<AudioSource>();
 
 			Flip();
 
@@ -119,6 +121,36 @@ namespace Script.Ship
 			else
 			{
 				lifebar.color = Color.red;
+			}
+		}
+
+		public void Damage(float damage)
+		{
+			health = Math.Max(0f, health - damage);
+			if (health <= 0f)
+			{
+				PlayOfflineSound();
+			}
+		}
+
+		private void PlayOfflineSound()
+		{
+			switch (componentType)
+			{
+				case ItemType.Cabin:
+				case ItemType.Cargo:
+				case ItemType.Navigation:
+				case ItemType.PowerPlant:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_generator"));
+					break;
+				case ItemType.Shield:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_schild"));
+					break;
+				case ItemType.Thruster:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_generator"));
+					break;
+				default:
+					throw new Exception();
 			}
 		}
 

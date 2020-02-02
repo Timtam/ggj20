@@ -11,10 +11,12 @@ namespace Script.Ship
 		public Explosion explosionPrefab;
 
 		private Canvas canvas;
+		private ShipComponent[] components;
 
 		private void Start()
 		{
 			canvas = GetComponentInParent<Canvas>();
+			components = canvas.GetComponentsInChildren<ShipComponent>();
 			StartCoroutine(DestructionLoop());
 		}
 
@@ -48,6 +50,16 @@ namespace Script.Ship
 
 			Instantiate(explosionPrefab, meteor.transform.position, Quaternion.identity, transform);
 			Destroy(meteor.gameObject);
+
+			ShipComponent component;
+			var loopCnt = 0;
+			do
+			{
+				component = components[Random.Range(0, components.Length)];
+				loopCnt++;
+			} while (component.health <= 0f && loopCnt <= 10);
+			if (component.health <= 0f) return;
+			component.Damage(Random.Range(0.1f, 0.4f));
 		}
 	}
 }
