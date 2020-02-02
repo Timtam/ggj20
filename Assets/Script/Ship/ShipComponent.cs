@@ -204,46 +204,45 @@ namespace Script.Ship
 			var inventorySlot = eventData.pointerDrag.GetComponent<InventorySlot>();
 			if (inventorySlot == null || !inventorySlot.IsDragging || ship.IsDestroyed) return;
 
-			if (parts.Contains(inventorySlot.itemType) || inventorySlot.itemType == componentType ||
-			    inventorySlot.itemType == ItemType.Cabling || inventorySlot.itemType == ItemType.DuctTape)
+			if (inventorySlot.itemType == componentType)
 			{
-				// correct part added
+				// replacing the component gives full health
+				Health = 1f;
 				inventorySlot.PlayDropSound();
 				inventorySlot.ItemCount -= 1;
-
-				if (inventorySlot.itemType == componentType)
-				{
-					// replacing the component gives full health
-					Health = 1f;
-					return;
-				}
-				if (parts.Contains(inventorySlot.itemType))
-				{
-					// having the correct replacement part gives back 40% health
-					Health = Mathf.Min(1f, Health + 0.4f);
-					return;
-				}
-				if (inventorySlot.itemType == ItemType.Cabling)
-				{
-					// cabling always heals 15%
-					Health = Mathf.Min(1f, Health + 0.15f);
-					return;
-				}
-				if (inventorySlot.itemType == ItemType.DuctTape)
-				{
-					// duct tape may heal or not. chance increases the more health is left
-					var chance = Health > 0.5f ? 1f : Health * 2f;
-					if (Random.Range(0f, 1f) <= chance)
-					{
-						Health = Mathf.Min(1f, Health + 0.2f);
-					}
-				}
+				return;
 			}
-			else
+			if (parts.Contains(inventorySlot.itemType) && Health > 0f)
 			{
-				// wrong part added
-				inventorySlot.PlayWrongDropSound();
+				// having the correct replacement part gives back 40% health
+				Health = Mathf.Min(1f, Health + 0.4f);
+				inventorySlot.PlayDropSound();
+				inventorySlot.ItemCount -= 1;
+				return;
 			}
+			if (inventorySlot.itemType == ItemType.Cabling && Health > 0f)
+			{
+				// cabling always heals 15%
+				Health = Mathf.Min(1f, Health + 0.15f);
+				inventorySlot.PlayDropSound();
+				inventorySlot.ItemCount -= 1;
+				return;
+			}
+			if (inventorySlot.itemType == ItemType.DuctTape && Health > 0f)
+			{
+				// duct tape may heal or not. chance increases the more health is left
+				var chance = Health > 0.5f ? 1f : Health * 2f;
+				if (Random.Range(0f, 1f) <= chance)
+				{
+					Health = Mathf.Min(1f, Health + 0.2f);
+				}
+				inventorySlot.PlayDropSound();
+				inventorySlot.ItemCount -= 1;
+				return;
+			}
+
+			// wrong part added
+			inventorySlot.PlayWrongDropSound();
 		}
 	}
 }
