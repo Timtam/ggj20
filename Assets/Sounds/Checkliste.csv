@@ -31,15 +31,15 @@ Ausfall von Komponenten:;;X
 ;Schild;X
 Raumschiff explodiert (Spiel endet);;X
 Musik;;X
-Atmosph‰re;;
+Atmosph√§re;;
 ;;
 ;;
 Planeten-Szene:;;
 Musik;;X
-Atmosph‰re;;
-Aufsammeln:;Bauteile / Rohstoffe (klein);
-;Komponenten (groﬂ);
-Inventar von Roboter nach Schiffslager;;
+Atmosph√§re;;
+Aufsammeln:;Bauteile / Rohstoffe (klein);X
+;Komponenten (gro√ü);X
+Inventar von Roboter nach Schiffslager;;X
 Fortbewegung (Rollen);Loop;X
 ;Start;X
 ;Stopp;X
