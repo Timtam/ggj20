@@ -59,7 +59,7 @@ namespace Script.Ship
 				loopCnt++;
 			} while (component.health <= 0f && loopCnt <= 10);
 			if (component.health <= 0f) return;
-			component.Damage(Random.Range(0.1f, 0.4f));
+			component.Damage(Random.Range(0.3f, 0.6f));
 		}
 	}
 }

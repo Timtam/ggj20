@@ -23,6 +23,7 @@ namespace Script.Ship
 		private Image lifebar;
 		private Image componentImage;
 		private float lifebarWidth;
+		private Inventory inventory;
 
 		private void Start()
 		{
@@ -31,6 +32,8 @@ namespace Script.Ship
 			lifebar = transform.Find("Lifebar").GetComponent<Image>();
 			componentImage = transform.Find("Component").GetComponent<Image>();
 			audioSource = GetComponent<AudioSource>();
+			var canvas = FindObjectOfType<Canvas>();
+			inventory = canvas.GetComponentInChildren<Inventory>();
 
 			Flip();
 
@@ -122,6 +125,16 @@ namespace Script.Ship
 			{
 				lifebar.color = Color.red;
 			}
+
+			switch (componentType)
+			{
+				case ItemType.PowerPlant:
+					health -= 0.015f * Time.deltaTime;
+					break;
+				case ItemType.Thruster:
+					health -= 0.02f * Time.deltaTime;
+					break;
+			}
 		}
 
 		public void Damage(float damage)
@@ -130,6 +143,10 @@ namespace Script.Ship
 			if (health <= 0f)
 			{
 				PlayOfflineSound();
+				if (componentType == ItemType.Cargo)
+				{
+					inventory.DestroyCargo();
+				}
 			}
 		}
 

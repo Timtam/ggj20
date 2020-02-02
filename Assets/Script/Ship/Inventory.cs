@@ -20,6 +20,15 @@ namespace Script.Ship
 			Globals.Instance.shipInventory = ItemCounts;
 		}
 
+		public void DestroyCargo()
+		{
+			for (var i = 0; i < ItemCounts.Length; i++)
+			{
+				ItemCounts[i] = 0;
+			}
+			UpdateCount();
+		}
+
 		public void UpdateCount()
 		{
 			foreach (Transform child in transform)

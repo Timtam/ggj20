@@ -21,6 +21,7 @@ namespace Script.Planet
 		{
 			ChooseMap();
 			SpawnPickups();
+			RepairShip();
 
 			var canvas = FindObjectOfType<Canvas>();
 			countdowmText = canvas.transform.Find("Countdown").GetComponent<Text>();
@@ -66,6 +67,15 @@ namespace Script.Planet
 					pickup.UpdateSprite();
 					break;
 				}
+			}
+		}
+
+		private void RepairShip()
+		{
+			var globals = Globals.Instance;
+			for (var i = 0; i < globals.shipComponentHealth.Length; i++)
+			{
+				globals.shipComponentHealth[i] = Mathf.Max(0.1f, globals.shipComponentHealth[i]);
 			}
 		}
 
