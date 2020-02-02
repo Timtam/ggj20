@@ -51,15 +51,16 @@ namespace Script.Planet
 
 		private void SpawnPickups()
 		{
-			for (var i = 0; i < 20; i++)
+			var numPickups = Random.Range(25, 50);
+			for (var i = 0; i < numPickups; i++)
 			{
 				var type = GetNewPickupType();
 				var sprite = Item.GetSpriteForItem(type);
 				var spriteSize = sprite.rect.size / sprite.pixelsPerUnit;
 				while (true)
 				{
-					var x = Random.value * 50 - 25;
-					var y = Random.value * 50 - 25;
+					var x = Random.Range(-45f, 45f);
+					var y = Random.Range(-25f, 25f);
 					var hit = Physics2D.BoxCast(new Vector2(x, y), spriteSize, 0, Vector2.zero);
 					if (hit.collider != null) continue;
 					var pickup = Instantiate(pickupPrefab, new Vector3(x, y, 0), Quaternion.identity);
