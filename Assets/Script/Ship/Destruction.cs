@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace Script.Ship
@@ -129,7 +130,7 @@ namespace Script.Ship
 				yield return new WaitForSeconds(0.2f);
 			}
 
-			// TODO: to main menu/game over
+			SceneManager.LoadScene("MainMenu");
 		}
 	}
 }
