@@ -133,10 +133,10 @@ namespace Script.Ship
 			switch (componentType)
 			{
 				case ItemType.PowerPlant:
-					InternalDamage(0.015f * Time.deltaTime);
+					DirectDamage(0.015f * Time.deltaTime);
 					break;
 				case ItemType.Thruster:
-					InternalDamage(0.01f * Time.deltaTime);
+					DirectDamage(0.01f * Time.deltaTime);
 					break;
 			}
 		}
@@ -149,16 +149,16 @@ namespace Script.Ship
 				var totalDamageMultiplier = (1 - shieldEfficiency) * 0.5f + 0.5f;
 				var componentDamage = damage * totalDamageMultiplier * 0.4f;
 				var shieldDamage = damage * totalDamageMultiplier * 0.6f;
-				InternalDamage(componentDamage);
-				ship.Shield.InternalDamage(shieldDamage);
+				DirectDamage(componentDamage);
+				ship.Shield.DirectDamage(shieldDamage);
 			}
 			else
 			{
-				InternalDamage(damage);
+				DirectDamage(damage);
 			}
 		}
 
-		private void InternalDamage(float damage)
+		public void DirectDamage(float damage)
 		{
 			if (Health <= 0f) return;
 			Health = Mathf.Max(0f, Health - damage);
