@@ -215,21 +215,18 @@ namespace Script.Ship
 				}
 				if (inventorySlot.itemType == ItemType.Cabling)
 				{
-					// cabling always heals 10%
-					health = Mathf.Min(1f, health + 0.1f);
+					// cabling always heals 15%
+					health = Mathf.Min(1f, health + 0.15f);
 					return;
 				}
 				if (inventorySlot.itemType == ItemType.DuctTape)
 				{
-					// duct tape is more efficient the more health is left
-					var effiency = Mathf.Exp(health) - 1f;
-					// some values:
-					// 0 health -> 0
-					// ~0.45 health -> 0.5
-					// 0.5 health -> ~0.65
-					// ~0.7 health -> 1
-					var rand = Random.Range(0f, 0.5f);
-					health = Mathf.Clamp(health + effiency - rand, 0f, 1f);
+					// duct tape may heal or not. chance increases the more health is left
+					var chance = health > 0.5f ? 1f : health * 2f;
+					if (Random.Range(0f, 1f) <= chance)
+					{
+						health = Mathf.Min(1f, health + 0.2f);
+					}
 				}
 			}
 			else
