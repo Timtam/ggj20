@@ -165,6 +165,11 @@ namespace Script.Ship
 					health = Mathf.Clamp(health + effiency - rand, 0f, 1f);
 				}
 			}
+			else
+			{
+				// wrong part added
+				inventorySlot.PlayWrongDropSound();
+			}
 		}
 	}
 }

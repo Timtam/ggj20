@@ -26,9 +26,9 @@ namespace Script.Ship
 
 				var meteor = Instantiate(meteorPrefab, Vector3.zero, Quaternion.identity, transform);
 				var rt = meteor.transform as RectTransform;
-				var height = canvas.pixelRect.height;
+				var height = canvas.pixelRect.height * 1.2f;
 				var width = canvas.pixelRect.width * 0.4f;
-				rt.anchoredPosition = new Vector2(Random.Range(- width, width), height * -0.7f);
+				rt.anchoredPosition = new Vector2(Random.Range(- width, width), (Random.Range(0, 2) * 2f - 1f) * height);
 				var body = meteor.GetBody();
 				body.angularVelocity = Random.Range(-1f, 1f) * 100f;
 				var direction = transform.position - rt.position;
@@ -46,7 +46,7 @@ namespace Script.Ship
 			var meteor = other.gameObject.GetComponent<Meteor>();
 			if (meteor == null) return;
 
-			var explosion = Instantiate(explosionPrefab, meteor.transform.position, Quaternion.identity, transform);
+			Instantiate(explosionPrefab, meteor.transform.position, Quaternion.identity, transform);
 			Destroy(meteor.gameObject);
 		}
 	}

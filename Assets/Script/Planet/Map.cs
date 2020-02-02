@@ -15,6 +15,7 @@ namespace Script.Planet
 		private Inventory inventory;
 		private Text countdowmText;
 		private float remainingTime;
+		private AudioSource timerBeep;
 
 		public void Start()
 		{
@@ -25,6 +26,7 @@ namespace Script.Planet
 			countdowmText = canvas.transform.Find("Countdown").GetComponent<Text>();
 			remainingTime = 120f; // 2 min
 			inventory = canvas.GetComponentInChildren<Inventory>();
+			timerBeep = GetComponent<AudioSource>();
 		}
 
 		private void ChooseMap()
@@ -85,12 +87,18 @@ namespace Script.Planet
 
 		private void Update()
 		{
+			var lastTime = remainingTime;
 			remainingTime -= Time.deltaTime;
 			var sec = Mathf.Max(0, Mathf.FloorToInt(remainingTime % 60f));
 			var min = Mathf.FloorToInt((remainingTime - sec) / 60f);
 			countdowmText.text = $"Time until ship leaves\n{min:00}:{sec:00}";
 
-			if (remainingTime <= 0)
+			if ((lastTime >= 30f && remainingTime < 30f) ||
+			    (lastTime >= 15f && remainingTime < 15f))
+			{
+				timerBeep.Play();
+			}
+			if (remainingTime <= 0 || Input.GetKeyDown(KeyCode.F12))
 			{
 				inventory.MoveItemsToShip();
 				SceneManager.LoadScene("StartShipScene");

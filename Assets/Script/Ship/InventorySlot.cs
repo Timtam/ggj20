@@ -87,6 +87,11 @@ namespace Script.Ship
 			IsDragging = false;
 		}
 
+		public void PlayWrongDropSound()
+		{
+			audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/wrong_drop"));
+		}
+
 		public void PlayDropSound()
 		{
 			switch (itemType)
