@@ -745,8 +745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: MainMenu
-  clip: {fileID: 0}
-  duration: 10
+  clip: {fileID: 8300000, guid: 74792fd00aa3ea8af9a7341804b18fa7, type: 3}
+  duration: 12
 --- !u!4 &1811267415
 Transform:
   m_ObjectHideFlags: 0
