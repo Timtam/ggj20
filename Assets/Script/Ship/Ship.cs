@@ -12,6 +12,7 @@ namespace Script.Ship
 		private Text countdownText;
 		private float remainingDistance, remainingTime, speed;
 
+		private ShipComponent navigation;
 		private ShipComponent thruster;
 
 		private void Start()
@@ -22,6 +23,7 @@ namespace Script.Ship
 
 			var canvas = GetComponentInParent<Canvas>();
 			var components = canvas.GetComponentsInChildren<ShipComponent>();
+			navigation = components.First(c => c.componentType == ItemType.Navigation);
 			thruster = components.First(c => c.componentType == ItemType.Thruster);
 		}
 
@@ -32,7 +34,11 @@ namespace Script.Ship
 			remainingTime = remainingDistance / speed;
 			var sec = Mathf.Max(0, Mathf.FloorToInt(remainingTime % 60f));
 			var min = Mathf.FloorToInt((remainingTime - sec) / 60f);
-			countdownText.text = $"{min:00}:{sec:00}";
+
+			if(navigation.health == 0.0f)
+				countdownText.text = ""??:??";
+			else
+				countdownText.text = $"{min:00}:{sec:00}";
 
 			// component updates
 			speed = 1.5f;
