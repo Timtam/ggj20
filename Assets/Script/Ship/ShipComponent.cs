@@ -171,6 +171,8 @@ namespace Script.Ship
 			switch (componentType)
 			{
 				case ItemType.Cabin:
+					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_cabin"));
+					break;
 				case ItemType.Cargo:
 				case ItemType.Navigation:
 					audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/repair/disable_navigation"));

@@ -40,8 +40,8 @@ namespace Script.Planet
 					Quaternion.AngleAxis(Vector3.SignedAngle(Vector3.up, move, Vector3.forward), Vector3.forward);
 				if (!isMoving)
 				{
-					//robotStart.Play();
-					robotMove.Play();
+					robotStart.Play();
+					robotMove.PlayDelayed(0.12f);
 				}
 				isMoving = true;
 			}
