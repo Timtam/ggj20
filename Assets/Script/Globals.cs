@@ -23,5 +23,7 @@ namespace Script
 
 		public int[] shipInventory = new int[Item.ItemTypes.Length];
 		public float[] shipComponentHealth;
+		public int survivedFlights = 0;
+		public float timeAlive = 0f;
 	}
 }

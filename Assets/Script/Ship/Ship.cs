@@ -48,6 +48,10 @@ namespace Script.Ship
 
 		private void Update()
 		{
+			if (!IsDestroyed)
+			{
+				Globals.Instance.timeAlive += Time.deltaTime;
+			}
 			// time/distance calculation
 			if (speed <= Mathf.Epsilon)
 			{
@@ -64,6 +68,7 @@ namespace Script.Ship
 
 			if (remainingTime <= 0 || Input.GetKeyDown(KeyCode.F12))
 			{
+				Globals.Instance.survivedFlights++;
 				SceneManager.LoadScene("LandShipScene");
 			}
 

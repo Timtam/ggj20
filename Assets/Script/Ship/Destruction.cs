@@ -130,7 +130,7 @@ namespace Script.Ship
 				yield return new WaitForSeconds(0.2f);
 			}
 
-			SceneManager.LoadScene("MainMenu");
+			SceneManager.LoadScene("GameOverScene");
 		}
 	}
 }

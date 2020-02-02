@@ -107,6 +107,7 @@ namespace Script.Planet
 		{
 			var lastTime = remainingTime;
 			remainingTime -= Time.deltaTime;
+			Globals.Instance.timeAlive += Time.deltaTime;
 			var sec = Mathf.Max(0, Mathf.FloorToInt(remainingTime % 60f));
 			var min = Mathf.Max(0, Mathf.FloorToInt((remainingTime - sec) / 60f));
 			countdowmText.text = $"Time until ship leaves\n{min:00}:{sec:00}";

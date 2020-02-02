@@ -7,6 +7,8 @@ namespace Script
 	{
 		public void NewGameClick()
 		{
+			Globals.Instance.survivedFlights = 0;
+			Globals.Instance.timeAlive = 0f;
 			SceneManager.LoadScene("PlanetScene");
 		}
 
