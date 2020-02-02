@@ -12,7 +12,7 @@ namespace Script
 
 		public void CreditClick()
 		{
-
+			SceneManager.LoadScene("CreditsScene");
 		}
 
 		public void ExitClick()
